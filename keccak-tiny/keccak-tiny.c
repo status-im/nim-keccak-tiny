@@ -143,14 +143,19 @@ static inline int hash(uint8_t* out, size_t outlen,
                   const uint8_t* in, size_t inlen) {              \
     return hash(out, outlen, in, inlen, 200 - (bits / 4), 0x1f);  \
   }
-#define defsha3(bits)                                             \
-  int sha3_##bits(uint8_t* out, size_t outlen,                    \
+
+
+#define defalgo(algoname, bits, pad)                              \
+  int algoname ## bits(uint8_t* out, size_t outlen,               \
                   const uint8_t* in, size_t inlen) {              \
     if (outlen > (bits/8)) {                                      \
       return -1;                                                  \
     }                                                             \
-    return hash(out, outlen, in, inlen, 200 - (bits / 4), 0x06);  \
+    return hash(out, outlen, in, inlen, 200 - (bits / 4), pad);   \
   }
+
+#define defsha3(bits)   defalgo(sha3_, bits, 0x06)
+#define defkeccak(bits) defalgo(keccak_, bits, 0x01)
 
 /*** FIPS202 SHAKE VOFs ***/
 defshake(128)
@@ -161,3 +166,9 @@ defsha3(224)
 defsha3(256)
 defsha3(384)
 defsha3(512)
+
+/*** ORIGINAL KECCAK SUBMISSION ***/
+defkeccak(224)
+defkeccak(256)
+defkeccak(384)
+defkeccak(512)
