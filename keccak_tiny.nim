@@ -1,11 +1,11 @@
 {.compile: "keccak-tiny/keccak-tiny.c".}
 
 import
-  strutils
+  strutils, parseutils
 
 type
   Hash*[bits: static[int]] = object
-    data: array[bits div 8, uint8]
+    data*: array[bits div 8, uint8]
 
   InputRange* = (pointer, csize)
 
@@ -13,6 +13,21 @@ proc `$`*(h: Hash): string =
   result = ""
   for byte in h.data:
     result.add(toHex(int(byte), 2))
+
+proc hashFromHex*(bits: static[int], input: string): Hash[bits] =
+  if input.len != bits div 4:
+    raise newException(ValueError,
+                       "The input string has incorrect size")
+
+  for i in 0 ..< bits div 8:
+    var nextByte: int
+    if parseHex(input, nextByte, i*2, 2) == 2:
+      result.data[i] = uint8(nextByte)
+    else:
+      raise newException(ValueError,
+                         "The input string contains invalid characters")
+
+template hashFromHex*(s: static[string]): untyped = hashFromHex(s.len * 4, s)
 
 proc toInputRange(x: string): InputRange = (x.cstring.pointer, x.len)
 proc toInputRange[T](x: openarray[T]): InputRange = (cast[pointer](x), x.len * T.sizeof)
