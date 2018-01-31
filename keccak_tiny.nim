@@ -10,7 +10,7 @@ type
   InputRange* = (pointer, csize)
 
 proc `$`*(h: Hash): string =
-  result = ""
+  result = newStringOfCap(high(h.data) * 2)
   for byte in h.data:
     result.add(toHex(int(byte), 2))
 
