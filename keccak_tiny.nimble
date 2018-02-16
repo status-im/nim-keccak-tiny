@@ -1,13 +1,13 @@
 mode = ScriptMode.Verbose
 
 packageName   = "keccak_tiny"
-version       = "0.1.0"
+version       = "0.2.0"
 author        = "Zahary Karadjov"
 description   = "A wrapper for the keccak-tiny C library"
 license       = "Apache2"
 skipDirs      = @["tests"]
 
-requires "nim >= 0.17.0"
+requires "nim >= 0.17.0", "ranges >= 0.0.1"
 
 proc configForTests() =
   --hints: off
