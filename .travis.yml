@@ -1,0 +1,28 @@
+language: c
+env:
+  - BRANCH=devel
+compiler:
+  - gcc
+  - clang
+before_install:
+  - |
+    if [ ! -x nim-$BRANCH/bin/nim ]; then
+      git clone -b $BRANCH --depth 1 git://github.com/nim-lang/nim nim-$BRANCH/
+      cd nim-$BRANCH
+      sh ci/build.sh
+      ./koch tools -d:release
+    else
+      cd nim-$BRANCH
+      git fetch origin
+      if ! git merge FETCH_HEAD | grep "Already up-to-date"; then
+        bin/nim c koch
+        ./koch boot -d:release
+        ./koch tools -d:release
+      fi
+    fi
+    export PATH=$PWD/bin:$PATH
+    cd ..
+script:
+  - nimble install -y
+  - nimble test
+

@@ -7,7 +7,7 @@ description   = "A wrapper for the keccak-tiny C library"
 license       = "Apache2"
 skipDirs      = @["tests"]
 
-requires "nim >= 0.17.0", "ranges >= 0.0.1"
+requires "nim >= 0.17.0", "https://github.com/status-im/nim-ranges >= 0.0.1"
 
 proc configForTests() =
   --hints: off
