@@ -8,7 +8,7 @@ license       = "Apache License 2.0"
 skipDirs      = @["tests"]
 
 requires "nim >= 0.17.0",
-         "nim-ranges"
+         "ranges"
 
 proc configForTests() =
   --hints: off
