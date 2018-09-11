@@ -1,4 +1,5 @@
 {.compile: "keccak-tiny/keccak-tiny.c".}
+{.passC: "-std=c99".}
 
 import
   strutils, parseutils, ranges/memranges
