@@ -1,5 +1,5 @@
 {.compile: "keccak-tiny/keccak-tiny.c".}
-when defined(c):
+when not defined(cpp) or defined(objc) or defined(js):
     {.passC: "-std=c99".}
 
 import
