@@ -1,6 +1,5 @@
 nimcache/
 
 # ignore all executables
-*
 !*.*
 *.exe
