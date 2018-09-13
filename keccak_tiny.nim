@@ -1,5 +1,6 @@
 {.compile: "keccak-tiny/keccak-tiny.c".}
-{.passC: "-std=c99".}
+when defined(c):
+    {.passC: "-std=c99".}
 
 import
   strutils, parseutils, ranges/memranges
@@ -98,4 +99,3 @@ proc shake_256(input: MemRange): Hash[256] =
 
 template shake_256*(input: typed): Hash[256] =
   shake_256(toMemRange(input))
-
