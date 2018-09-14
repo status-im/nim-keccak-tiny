@@ -1,5 +1,9 @@
-{.compile: "keccak-tiny/keccak-tiny.c".}
-{.passC: "-std=c99".}
+{.compile: "keccak_tiny/keccak-tiny.c".}
+#Keccak-Tiny should be compiled for C99.
+#This statement checks to see if we're using a backend other then C, and if not, passes C99.
+#We would just check for C except Nim only defines the other backends.
+when not defined(cpp) or defined(objc) or defined(js):
+  {.passC: "-std=c99".}
 
 import
   strutils, parseutils, ranges/memranges
@@ -98,4 +102,3 @@ proc shake_256(input: MemRange): Hash[256] =
 
 template shake_256*(input: typed): Hash[256] =
   shake_256(toMemRange(input))
-
