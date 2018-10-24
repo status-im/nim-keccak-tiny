@@ -8,7 +8,7 @@
 
 A wrapper for the keccak-tiny C library
 
-**Warning!** We recommend using [nimcrypto](https://github.com/cheatfate/nimcrypto) instead.
+**Warning!** A native Nim implementation of SHA3 and Keccak is now available in the [nimcrypto](https://github.com/cheatfate/nimcrypto) library. We recommend using it.
 
 ## License
 
