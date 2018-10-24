@@ -8,6 +8,8 @@
 
 A wrapper for the keccak-tiny C library
 
+**Warning!** We recommend using [nimcrypto](https://github.com/cheatfate/nimcrypto) instead.
+
 ## License
 
 Licensed and distributed under either of
